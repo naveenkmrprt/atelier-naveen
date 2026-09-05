@@ -1,0 +1,177 @@
+---
+// BentoGrid — Open Source & Architecture Explorations
+
+const repos = [
+  {
+    id: "home-journey-tracker",
+    name: "home-journey-tracker",
+    description:
+      "A structured data tracker for real-estate journeys. Designed around clean state management and persistent local data pipelines with a focus on data integrity and UX clarity.",
+    tags: ["Angular", "TypeScript", "Firebase"],
+    url: "https://github.com/naveenkmrprt/home-journey-tracker",
+    wide: true,
+    year: "2024",
+    type: "Full-Stack",
+  },
+  {
+    id: "mhc-backend",
+    name: "mhc-backend",
+    description:
+      "RESTful service layer for the MHC platform. Strict separation of concerns, layered architecture with Spring Security and JWT token management.",
+    tags: ["Java", "Spring Boot", "PostgreSQL"],
+    url: "https://github.com/naveenkmrprt/mhc-backend",
+    wide: false,
+    year: "2023",
+    type: "Backend",
+  },
+  {
+    id: "mhc-frontend",
+    name: "mhc-frontend",
+    description:
+      "Component-driven UI consuming the MHC API. State managed via RxJS observables with strict module boundary enforcement.",
+    tags: ["Angular", "RxJS", "SCSS"],
+    url: "https://github.com/naveenkmrprt/mhc-frontend",
+    wide: false,
+    year: "2023",
+    type: "Frontend",
+  },
+  {
+    id: "final-moviebooking",
+    name: "final-moviebooking",
+    description:
+      "End-to-end booking platform covering seat reservation, payment flow integration, and session management across a full Spring MVC stack.",
+    tags: ["Java", "Spring MVC", "MySQL"],
+    url: "https://github.com/naveenkmrprt/final-moviebooking",
+    wide: false,
+    year: "2022",
+    type: "Full-Stack",
+  },
+];
+---
+
+<!-- ═══════════════════════════════════════════
+     OPEN SOURCE & ARCHITECTURE EXPLORATIONS
+════════════════════════════════════════════ -->
+<section
+  id="open-source"
+  class="w-full bg-base border-t border-[#4A4A4A] px-8 md:px-16 py-20 md:py-28"
+>
+  <!-- Section header -->
+  <div class="flex items-baseline justify-between mb-12">
+    <h2 class="text-[10px] uppercase tracking-[0.4em] text-cream/30">
+      Open Source &amp; Architecture Explorations
+    </h2>
+    <a
+      href="https://github.com/naveenkmrprt"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hidden md:block text-[10px] uppercase tracking-[0.3em] text-cream/20
+             hover:text-terracotta transition-colors duration-300"
+    >
+      github.com/naveenkmrprt ↗
+    </a>
+  </div>
+
+  <!-- Bento grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="bento-grid">
+    {repos.map((repo) => (
+      <a
+        href={repo.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class:list={[
+          "bento-card group relative flex flex-col justify-between",
+          "bg-surface border border-[#4A4A4A] rounded-sm p-8 min-h-[240px]",
+          "transition-all duration-300 ease-out cursor-pointer",
+          "hover:border-terracotta hover:-translate-y-1",
+          "hover:shadow-[0_12px_40px_rgba(217,119,87,0.07)]",
+          repo.wide ? "md:col-span-2" : "md:col-span-1",
+        ]}
+      >
+        <!-- Top: type pill + year + arrow -->
+        <div class="flex items-start justify-between mb-6">
+          <span class="text-[9px] uppercase tracking-[0.25em] text-cream/25
+                       border border-[#4A4A4A] group-hover:border-terracotta/30
+                       rounded-full px-2.5 py-1 transition-colors duration-300">
+            {repo.type}
+          </span>
+          <div class="flex items-center gap-3">
+            <span class="text-[10px] text-cream/20 font-mono">{repo.year}</span>
+            <svg
+              class="w-4 h-4 text-cream/15 group-hover:text-terracotta
+                     group-hover:translate-x-0.5 group-hover:-translate-y-0.5
+                     transition-all duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Name + description -->
+        <div class:list={["flex-1", repo.wide ? "max-w-2xl" : ""]}>
+          <h3 class="text-base font-semibold text-cream mb-3 font-mono tracking-tight
+                     group-hover:text-cream transition-colors duration-300">
+            {repo.name}
+          </h3>
+          <p class="text-[0.82rem] text-cream/35 font-light leading-relaxed">
+            {repo.description}
+          </p>
+        </div>
+
+        <!-- Tech stack tags -->
+        <div class="flex flex-wrap gap-3 mt-8 pt-5 border-t border-[#3A3A3A]">
+          {repo.tags.map((tag) => (
+            <span class="text-[9px] uppercase tracking-[0.2em] text-terracotta/50
+                         group-hover:text-terracotta/80 font-mono transition-colors duration-300">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<!-- GSAP — scale + autoAlpha snap reveal -->
+<script>
+  (function () {
+    function initBento() {
+      const gsap = window.gsap;
+      const ST   = window.ScrollTrigger;
+      if (!gsap || !ST) { setTimeout(initBento, 60); return; }
+      gsap.registerPlugin(ST);
+
+      const cards = document.querySelectorAll(".bento-card");
+      gsap.set(cards, { scale: 0.95, autoAlpha: 0 });
+
+      ST.batch(cards, {
+        start: "top 88%",
+        onEnter(batch) {
+          gsap.to(batch, {
+            scale: 1,
+            autoAlpha: 1,
+            stagger: 0.1,
+            duration: 0.9,
+            ease: "expo.out",
+            overwrite: true,
+          });
+        },
+        onLeaveBack(batch) {
+          gsap.to(batch, {
+            scale: 0.95,
+            autoAlpha: 0,
+            stagger: 0.05,
+            duration: 0.4,
+            ease: "power2.in",
+            overwrite: true,
+          });
+        },
+      });
+    }
+
+    document.readyState === "loading"
+      ? document.addEventListener("DOMContentLoaded", initBento)
+      : initBento();
+  })();
+</script>

@@ -1,0 +1,90 @@
+---
+// CustomCursor — Architectural cursor with GSAP follow and hover states
+---
+
+<!-- Only show custom cursor on devices with fine pointers (mice) -->
+<div id="custom-cursor" class="pointer-events-none fixed inset-0 z-[10000] hidden md:block">
+  <!-- Outer delicate terracotta circle -->
+  <div
+    id="cursor-outer"
+    class="absolute top-0 left-0 w-8 h-8 -ml-4 -mt-4 border border-terracotta rounded-full flex items-center justify-center transition-transform duration-300 ease-out"
+  ></div>
+  <!-- Inner concrete dot -->
+  <div
+    id="cursor-inner"
+    class="absolute top-0 left-0 w-1.5 h-1.5 -ml-[3px] -mt-[3px] bg-[#4A4A4A] rounded-full transition-colors duration-300"
+  ></div>
+</div>
+
+<script>
+  (function () {
+    // Only initialize if device has a fine pointer (mouse)
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    function initCursor() {
+      const gsap = window.gsap;
+      if (!gsap) { setTimeout(initCursor, 50); return; }
+
+      const outer = document.getElementById("cursor-outer");
+      const inner = document.getElementById("cursor-inner");
+      
+      // GSAP quickSetters for high performance
+      const xSetOuter = gsap.quickSetter(outer, "x", "px");
+      const ySetOuter = gsap.quickSetter(outer, "y", "px");
+      const xSetInner = gsap.quickSetter(inner, "x", "px");
+      const ySetInner = gsap.quickSetter(inner, "y", "px");
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      
+      // Outer circle lagging slightly for smooth effect
+      let outerX = mouseX;
+      let outerY = mouseY;
+
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Inner dot follows instantly
+        xSetInner(mouseX);
+        ySetInner(mouseY);
+      });
+
+      // Render loop for smooth outer follow
+      gsap.ticker.add(() => {
+        const dt = 1.0 - Math.pow(1.0 - 0.25, gsap.ticker.deltaRatio());
+        outerX += (mouseX - outerX) * dt;
+        outerY += (mouseY - outerY) * dt;
+        xSetOuter(outerX);
+        ySetOuter(outerY);
+      });
+
+      // Hover states for interactives
+      const interactives = document.querySelectorAll("a, button, .interactive, .cursor-pointer");
+      
+      interactives.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          gsap.to(outer, { scale: 1.5, opacity: 0.5, duration: 0.3, ease: "power2.out" });
+          gsap.to(inner, { backgroundColor: "#EFECE6", duration: 0.3 }); // parchment
+        });
+        el.addEventListener("mouseleave", () => {
+          gsap.to(outer, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" });
+          gsap.to(inner, { backgroundColor: "#4A4A4A", duration: 0.3 }); // concrete
+        });
+      });
+    }
+
+    document.readyState === "loading"
+      ? document.addEventListener("DOMContentLoaded", initCursor)
+      : initCursor();
+  })();
+</script>
+
+<style is:global>
+  /* Hide system cursor globally on fine pointer devices */
+  @media (pointer: fine) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
+</style>

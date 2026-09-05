@@ -1,0 +1,127 @@
+---
+// EngineeringProcess — "02 / Engineering Process & Philosophy"
+// 3-column brutalist card grid with terracotta top borders
+
+const steps = [
+  {
+    num: "01",
+    title: "First-Principles Architecture",
+    detail:
+      "Establishing Architecture Decision Records (ADRs) and clear system boundaries before touching code. Eliminating premature optimization in favor of deterministic data flows.",
+    tags: ["ADRs", "System Design", "Data Flow"],
+  },
+  {
+    num: "02",
+    title: "Shift-Left & Resilience",
+    detail:
+      "Non-destructive batch pipelines, strict typing, automated security scanning (Fossa / SonarQube), and high test coverage to kill regressions before staging.",
+    tags: ["Fossa", "SonarQube", "CI/CD"],
+  },
+  {
+    num: "03",
+    title: "AI-Augmented Velocity",
+    detail:
+      "Leveraging AI workflows to eliminate boilerplate and compress sprint cycles, enabling lean teams to deliver high-throughput, enterprise-scale platforms.",
+    tags: ["AI Tooling", "Sprint Cycles", "Scale"],
+  },
+];
+---
+
+<!-- ═══════════════════════════════════════════
+     ENGINEERING PROCESS & PHILOSOPHY
+════════════════════════════════════════════ -->
+<section
+  id="process"
+  class="w-full bg-base border-t border-[#4A4A4A] px-8 md:px-16 py-20 md:py-28"
+>
+  <!-- Section header -->
+  <div class="flex items-baseline justify-between mb-4">
+    <span class="text-[10px] uppercase tracking-[0.4em] text-cream/30">
+      02 / Methodology
+    </span>
+  </div>
+  <h2 class="text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold text-cream tracking-tight mb-16 max-w-2xl">
+    Systemic Principles<br />Over Fast Hacks.
+  </h2>
+
+  <!-- 3-col card grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="process-grid">
+    {steps.map((step) => (
+      <div
+        class="process-card flex flex-col justify-between
+               bg-[#232323] border-t-2 border-terracotta
+               border-x border-b border-x-[#4A4A4A] border-b-[#4A4A4A]
+               p-8 min-h-[320px]"
+      >
+        <!-- Step number -->
+        <div class="flex items-start justify-between mb-8">
+          <span class="text-[10px] font-mono text-cream/20 tracking-widest">
+            Step {step.num}
+          </span>
+        </div>
+
+        <!-- Title + detail -->
+        <div class="flex-1">
+          <h3 class="text-base font-semibold text-cream mb-4 leading-snug">
+            {step.title}
+          </h3>
+          <p class="text-[0.82rem] text-cream/40 font-light leading-relaxed">
+            {step.detail}
+          </p>
+        </div>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mt-8 pt-5 border-t border-[#3A3A3A]">
+          {step.tags.map((tag) => (
+            <span class="text-[9px] uppercase tracking-[0.2em] text-terracotta/50 font-mono">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- GSAP — vertical stagger reveal -->
+<script>
+  (function () {
+    function initProcess() {
+      const gsap = window.gsap;
+      const ST   = window.ScrollTrigger;
+      if (!gsap || !ST) { setTimeout(initProcess, 60); return; }
+      gsap.registerPlugin(ST);
+
+      const cards = document.querySelectorAll(".process-card");
+      gsap.set(cards, { y: 40, autoAlpha: 0 });
+
+      ST.batch(cards, {
+        start: "top 85%",
+        onEnter(batch) {
+          gsap.to(batch, {
+            y: 0,
+            autoAlpha: 1,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: "power2.out",
+            overwrite: true,
+          });
+        },
+        onLeaveBack(batch) {
+          gsap.to(batch, {
+            y: 40,
+            autoAlpha: 0,
+            stagger: 0.05,
+            duration: 0.4,
+            ease: "power2.in",
+            overwrite: true,
+          });
+        },
+      });
+    }
+
+    document.readyState === "loading"
+      ? document.addEventListener("DOMContentLoaded", initProcess)
+      : initProcess();
+  })();
+</script>

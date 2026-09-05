@@ -1,0 +1,167 @@
+---
+// ContactFooter — Brutalist typography-driven footer
+---
+
+<footer
+  id="contact"
+  class="w-full bg-base border-t border-[#4A4A4A] px-8 md:px-16
+         pt-20 md:pt-28 pb-12 md:pb-16 overflow-hidden"
+>
+  <!-- Giant headline with overflow clip for wipe animation -->
+  <div class="overflow-hidden mb-14 md:mb-20">
+    <h2
+      id="contact-headline"
+      class="text-[clamp(3.5rem,10vw,9.5rem)] font-bold leading-[0.95]
+             tracking-tight text-cream"
+    >
+      Let's Architect.
+    </h2>
+  </div>
+
+  <!-- Sub-copy -->
+  <p
+    id="contact-sub"
+    class="text-[clamp(0.85rem,1.4vw,1rem)] text-cream/35 font-light
+           max-w-md leading-relaxed mb-16 md:mb-20 opacity-0"
+  >
+    Open to senior engineering roles, fractional architecture work, and select
+    product collaborations. Response within 24 hours.
+  </p>
+
+  <!-- Contact links row -->
+  <div
+    id="contact-links"
+    class="flex flex-col sm:flex-row items-start sm:items-end
+           gap-8 sm:gap-16 mb-20 md:mb-28"
+  >
+    <!-- Email -->
+    <a
+      href="mailto:naveenkumarprt97@gmail.com"
+      class="contact-link group flex flex-col gap-1 opacity-0"
+    >
+      <span class="text-[9px] uppercase tracking-[0.35em] text-cream/20 mb-1"
+        >Email</span
+      >
+      <span
+        class="relative text-sm md:text-base font-light text-cream/60
+                   group-hover:text-cream transition-colors duration-300 tracking-wide"
+      >
+        iwilenter@gmail.com
+        <span
+          class="absolute bottom-0 left-0 h-px bg-terracotta
+                     w-0 group-hover:w-full transition-all duration-500 ease-out"
+        ></span>
+      </span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a
+      href="https://linkedin.com/in/naveenkmrprt"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contact-link group flex flex-col gap-1 opacity-0"
+    >
+      <span class="text-[9px] uppercase tracking-[0.35em] text-cream/20 mb-1"
+        >LinkedIn</span
+      >
+      <span
+        class="relative text-sm md:text-base font-light text-cream/60
+                   group-hover:text-cream transition-colors duration-300 tracking-wide"
+      >
+        naveenkmrprt
+        <span
+          class="absolute bottom-0 left-0 h-px bg-terracotta
+                     w-0 group-hover:w-full transition-all duration-500 ease-out"
+        ></span>
+      </span>
+    </a>
+
+    <!-- GitHub -->
+    <a
+      href="https://github.com/naveenkmrprt"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contact-link group flex flex-col gap-1 opacity-0"
+    >
+      <span class="text-[9px] uppercase tracking-[0.35em] text-cream/20 mb-1"
+        >GitHub</span
+      >
+      <span
+        class="relative text-sm md:text-base font-light text-cream/60
+                   group-hover:text-cream transition-colors duration-300 tracking-wide"
+      >
+        naveenkmrprt
+        <span
+          class="absolute bottom-0 left-0 h-px bg-terracotta
+                     w-0 group-hover:w-full transition-all duration-500 ease-out"
+        ></span>
+      </span>
+    </a>
+  </div>
+
+  <!-- Bottom bar -->
+  <div
+    class="flex flex-col sm:flex-row items-start sm:items-center justify-between
+              pt-8 border-t border-[#4A4A4A] gap-3"
+  >
+    <span class="text-[9px] uppercase tracking-[0.35em] text-cream/15">
+      Atelier Naveen — 2025
+    </span>
+    <span class="text-[9px] uppercase tracking-[0.35em] text-cream/15">
+      Astro · GSAP · Tailwind CSS v4
+    </span>
+  </div>
+</footer>
+
+<!-- GSAP — Footer headline wipe + links stagger -->
+<script>
+  (function () {
+    function initFooter() {
+      const gsap = window.gsap;
+      const ST = window.ScrollTrigger;
+      if (!gsap || !ST) {
+        setTimeout(initFooter, 60);
+        return;
+      }
+      gsap.registerPlugin(ST);
+
+      const headline = document.getElementById("contact-headline");
+      const sub = document.getElementById("contact-sub");
+      const links = document.querySelectorAll(".contact-link");
+
+      // Headline wipe up from bottom of overflow container
+      gsap.from(headline, {
+        yPercent: 105,
+        duration: 1.2,
+        ease: "expo.out",
+        scrollTrigger: { trigger: headline, start: "top 90%" },
+      });
+
+      // Sub-copy fade up
+      gsap.to(sub, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: { trigger: sub, start: "top 90%" },
+      });
+
+      // Links stagger fade up
+      gsap.to(links, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#contact-links",
+          start: "top 92%",
+        },
+      });
+    }
+
+    document.readyState === "loading"
+      ? document.addEventListener("DOMContentLoaded", initFooter)
+      : initFooter();
+  })();
+</script>

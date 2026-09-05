@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — Terracotta & Raw Concrete
+════════════════════════════════════════════ */
+@theme {
+  /* Color palette */
+  --color-base:       #1A1A1A;   /* near-black background */
+  --color-surface:    #2E2E2E;   /* elevated surfaces / cards */
+  --color-terracotta: #D97757;   /* primary accent */
+  --color-cream:      #EFECE6;   /* primary text */
+
+  /* Typography */
+  --font-sans: "Inter", "SF Pro Display", system-ui, sans-serif;
+
+  /* Spacing extras */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+}
+
+/* ═══════════════════════════════════════════
+   GLOBAL BASE STYLES
+════════════════════════════════════════════ */
+html {
+  background-color: var(--color-base);
+  color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  scroll-padding-top: 0px;
+}
+
+/* Prevent flash before preloader hides body scroll */
+body.is-loading {
+  overflow: hidden;
+}
+
+::selection {
+  background-color: var(--color-terracotta);
+  color: var(--color-base);
+}

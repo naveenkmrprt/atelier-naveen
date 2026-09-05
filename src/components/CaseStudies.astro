@@ -1,0 +1,139 @@
+---
+// CaseStudies — "Systems & Architecture" brutalist list section
+// Animated via GSAP ScrollTrigger (script at bottom of file)
+
+const projects = [
+  {
+    index: "01",
+    client: "Ford Motor Company",
+    tags: ["GCS", "MongoDB", "Regulatory"],
+    detail:
+      "Architected a zero-to-one global NHTSA regulatory portal. Engineered GCS offloading patterns and advanced MongoDB BSON pipelines to guarantee data integrity across 10,000+ batch requirements.",
+  },
+  {
+    index: "02",
+    client: "Macy's Unified Order Platform",
+    tags: ["REST APIs", "GCP Pub/Sub", "TCO −35%"],
+    detail:
+      "Re-architected high-throughput REST APIs sustaining 10,000+ daily orders and optimized GCP Pub/Sub batch workflows, reducing operational TCO by 35%.",
+  },
+  {
+    index: "03",
+    client: "Digital Ecosystems: Malar Institute & Property Tech",
+    tags: ["Android", "Legacy Migration", "Full-Stack"],
+    detail:
+      "End-to-end digital transformation of legacy systems, migrating manual records to a scalable web database, alongside an Android-based property management architecture.",
+  },
+];
+---
+
+<!-- ═══════════════════════════════════════════
+     SYSTEMS & ARCHITECTURE SECTION
+════════════════════════════════════════════ -->
+<section
+  id="work"
+  class="w-full bg-base border-t border-[#4A4A4A] px-8 md:px-16 py-20 md:py-28"
+>
+  <!-- Section header -->
+  <div class="flex items-baseline justify-between mb-16">
+    <h2 class="text-[10px] uppercase tracking-[0.4em] text-cream/30">
+      Systems &amp; Architecture
+    </h2>
+    <span class="text-[10px] uppercase tracking-[0.3em] text-cream/20">
+      Selected Work — 2022–2025
+    </span>
+  </div>
+
+  <!-- Case study rows -->
+  <div class="divide-y divide-[#4A4A4A]">
+    {projects.map((p) => (
+      <div
+        class="case-row grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 md:gap-16
+               py-10 md:py-12 overflow-hidden"
+      >
+        <!-- LEFT: Index + Client -->
+        <div class="flex flex-col justify-between">
+          <span class="text-[11px] text-cream/20 font-mono mb-4 md:mb-0">
+            {p.index}
+          </span>
+          <div>
+            <h3 class="text-lg md:text-xl font-semibold text-cream leading-snug mb-4 max-w-xs">
+              {p.client}
+            </h3>
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2">
+              {p.tags.map((tag) => (
+                <span
+                  class="px-2.5 py-1 border border-[#4A4A4A] rounded-full
+                         text-[9px] uppercase tracking-[0.2em] text-cream/35"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Architectural detail -->
+        <div class="flex items-center">
+          <p class="text-[clamp(0.9rem,1.5vw,1.05rem)] text-cream/55 font-light
+                    leading-relaxed max-w-2xl">
+            {p.detail}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Bottom rule -->
+  <div class="mt-0 h-px w-full bg-[#4A4A4A]"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     GSAP — ScrollTrigger row reveal
+════════════════════════════════════════════ -->
+<script>
+  (function () {
+    function initScrollTrigger() {
+      const gsap = window.gsap;
+      const ST   = window.ScrollTrigger;
+      if (!gsap || !ST) { setTimeout(initScrollTrigger, 60); return; }
+
+      gsap.registerPlugin(ST);
+
+      const rows = document.querySelectorAll(".case-row");
+
+      // Set initial hidden state
+      gsap.set(rows, { yPercent: 40, autoAlpha: 0 });
+
+      // Staggered reveal on scroll
+      ST.batch(rows, {
+        start: "top 85%",
+        onEnter(batch) {
+          gsap.to(batch, {
+            yPercent: 0,
+            autoAlpha: 1,
+            stagger: 0.1,
+            duration: 1.1,
+            ease: "expo.out",
+            overwrite: true,
+          });
+        },
+        onLeaveBack(batch) {
+          gsap.to(batch, {
+            yPercent: 40,
+            autoAlpha: 0,
+            stagger: 0.05,
+            duration: 0.5,
+            ease: "power2.in",
+            overwrite: true,
+          });
+        },
+      });
+    }
+
+    document.readyState === "loading"
+      ? document.addEventListener("DOMContentLoaded", initScrollTrigger)
+      : initScrollTrigger();
+  })();
+</script>

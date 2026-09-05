@@ -1,0 +1,210 @@
+---
+// PreloaderHero — Terracotta & Raw Concrete
+// Layout: flex-col justify-between → pill top · headline mid · sub+scroll bottom
+---
+
+<!-- ═══════════════════════════════════════════
+     PRELOADER OVERLAY
+════════════════════════════════════════════ -->
+<div
+  id="preloader"
+  class="fixed inset-0 z-[9999] flex items-end justify-between
+         bg-base px-8 pb-10 md:px-16 md:pb-14"
+  aria-hidden="true"
+>
+  <div class="flex items-end gap-2">
+    <span
+      id="counter"
+      class="text-[clamp(5rem,14vw,10rem)] font-bold leading-none
+             tabular-nums tracking-tighter text-cream"
+    >0</span>
+    <span class="text-[clamp(1.5rem,4vw,3rem)] font-light text-terracotta mb-3 leading-none">%</span>
+  </div>
+  <div class="text-right mb-1">
+    <p class="text-[10px] uppercase tracking-[0.35em] text-cream/35 mb-1">Atelier</p>
+    <p class="text-[10px] uppercase tracking-[0.35em] text-cream/35">Naveen</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HERO — flex-col justify-between
+════════════════════════════════════════════ -->
+<section
+  id="hero"
+  class="relative min-h-screen flex flex-col justify-between
+         px-8 pt-12 pb-12 md:px-16"
+>
+  <!-- Grain texture — pointer-events-none so it never blocks clicks -->
+  <div
+    class="absolute inset-0 opacity-[0.025] pointer-events-none"
+    style="background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');background-size:200px 200px;"
+  ></div>
+
+  <!-- Left accent line — pointer-events-none so it never intercepts clicks -->
+  <div
+    id="hero-line"
+    class="absolute top-0 left-8 md:left-16 w-px h-full bg-terracotta/15 origin-top pointer-events-none"
+    style="transform:scaleY(0);"
+  ></div>
+
+  <!-- ── TOP: Status pill + Nav ── -->
+  <div class="relative z-10 flex items-center justify-between">
+    <div
+      id="hero-pill"
+      class="inline-flex items-center gap-2 px-4 py-2
+             border border-terracotta/30 rounded-full
+             text-[10px] uppercase tracking-[0.25em] text-terracotta
+             opacity-0 translate-y-4"
+    >
+      <span class="w-1.5 h-1.5 rounded-full bg-terracotta animate-pulse shrink-0"></span>
+      Available for select architecture challenges
+    </div>
+
+    <!-- Nav — bumped to text-cream/40 so links are clearly visible -->
+    <nav class="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.3em]">
+      <a href="#work"
+         class="text-cream/40 hover:text-terracotta transition-colors duration-300 cursor-pointer">
+        Work
+      </a>
+      <a href="#process"
+         class="text-cream/40 hover:text-terracotta transition-colors duration-300 cursor-pointer">
+        Process
+      </a>
+      <a href="#contact"
+         class="text-cream/40 hover:text-terracotta transition-colors duration-300 cursor-pointer">
+        Contact
+      </a>
+    </nav>
+  </div>
+
+  <!-- ── MIDDLE: Headline + Actions ── -->
+  <div class="relative z-10 flex-1 flex flex-col justify-center">
+    <div class="max-w-7xl w-full">
+      <h1
+        id="hero-title"
+        class="text-[clamp(2.8rem,7.5vw,8.5rem)] font-bold leading-[1.05] md:leading-[1.0]
+               tracking-tight text-cream text-balance"
+        aria-label="Naveen Kumar — Senior Full-Stack Engineer"
+      >
+        Naveen Kumar —&nbsp;Senior Full-Stack Engineer.
+      </h1>
+      
+      <!-- Actions Row -->
+      <div id="hero-actions" class="mt-10 md:mt-12 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 opacity-0 translate-y-4">
+        <a href="#work"
+           class="px-6 py-3.5 md:px-8 md:py-4 bg-cream text-base font-semibold text-[10px] md:text-xs uppercase tracking-widest hover:bg-terracotta text-center text-[#1A1A1A] transition-colors duration-300 cursor-pointer w-full sm:w-auto">
+          Explore Case Studies
+        </a>
+        <a href="/Naveen_Kumar_Resume.pdf" download
+           class="px-6 py-3.5 md:px-8 md:py-4 border border-cream text-cream text-[10px] md:text-xs uppercase tracking-widest font-semibold hover:bg-terracotta hover:border-terracotta transition-all duration-300 cursor-pointer text-center w-full sm:w-auto">
+          Download Blueprint (CV)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BOTTOM: Sub-headline + scroll indicator ── -->
+  <div class="relative z-10 flex items-end justify-between mt-8 md:mt-0">
+    <p
+      id="hero-sub"
+      class="text-[clamp(0.85rem,1.4vw,1.05rem)] text-cream/45 font-light
+             max-w-lg leading-relaxed tracking-wide opacity-0 translate-y-4"
+    >
+      Crafting infrastructure-grade web systems at the intersection of
+      product thinking and technical precision.
+    </p>
+
+    <!-- Vertical SCROLL indicator -->
+    <div
+      id="hero-scroll"
+      class="flex flex-col items-center gap-3 opacity-0 shrink-0 ml-4 md:ml-8"
+    >
+      <div class="h-10 md:h-14 w-px bg-gradient-to-b from-terracotta/50 to-transparent"></div>
+      <span
+        class="text-[9px] uppercase tracking-[0.35em] text-cream/30"
+        style="writing-mode:vertical-rl;transform:rotate(180deg);"
+      >Scroll</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     GSAP — Hero entry sequence
+════════════════════════════════════════════ -->
+<script>
+  (function () {
+    function splitChars(el) {
+      const raw = el.innerText;
+      el.innerHTML = "";
+      el.setAttribute("aria-label", raw);
+      return [...raw].map((ch) => {
+        const s = document.createElement("span");
+        s.textContent = ch === " " ? "\u00A0" : ch;
+        s.style.cssText = "display:inline-block;clip-path:inset(0 0 100% 0);";
+        el.appendChild(s);
+        return s;
+      });
+    }
+
+    function init() {
+      const gsap = window.gsap;
+      if (!gsap) { setTimeout(init, 50); return; }
+
+      const preloader  = document.getElementById("preloader");
+      const counterEl  = document.getElementById("counter");
+      const heroTitle  = document.getElementById("hero-title");
+      const heroActions= document.getElementById("hero-actions");
+      const heroPill   = document.getElementById("hero-pill");
+      const heroSub    = document.getElementById("hero-sub");
+      const heroLine   = document.getElementById("hero-line");
+      const heroScroll = document.getElementById("hero-scroll");
+
+      const chars = splitChars(heroTitle);
+      const obj   = { val: 0 };
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // 1. Mechanical counter 0 → 100
+      tl.to(obj, {
+        val: 100, duration: 2.2, ease: "steps(40)",
+        onUpdate() { counterEl.textContent = Math.round(obj.val); },
+      });
+
+      // 2. Hold at 100
+      tl.to({}, { duration: 0.3 });
+
+      // 3. Preloader wipes UP via clip-path
+      tl.to(preloader, {
+        clipPath: "inset(100% 0 0 0)",
+        duration: 1.0, ease: "power4.inOut",
+        onComplete() { preloader.style.display = "none"; },
+      });
+
+      // 4. Left accent line
+      tl.to(heroLine, { scaleY: 1, duration: 1.2, ease: "power3.inOut" }, "-=0.4");
+
+      // 5. Char-by-char title
+      tl.to(chars, {
+        clipPath: "inset(0 0 0% 0)",
+        stagger: { each: 0.026, ease: "none" },
+        ease: "power2.out", duration: 0.05,
+      }, "-=0.6");
+
+      // 5.5 Actions reveal
+      tl.to(heroActions, { opacity: 1, y: 0, duration: 0.7 }, "-=0.2");
+
+      // 6. Status pill
+      tl.to(heroPill, { opacity: 1, y: 0, duration: 0.7 }, "-=0.8");
+
+      // 7. Sub-headline
+      tl.to(heroSub, { opacity: 1, y: 0, duration: 0.8 }, "-=0.55");
+
+      // 8. Scroll indicator
+      tl.to(heroScroll, { opacity: 1, duration: 0.6 }, "-=0.3");
+    }
+
+    document.readyState === "loading"
+      ? document.addEventListener("DOMContentLoaded", init)
+      : init();
+  })();
+</script>

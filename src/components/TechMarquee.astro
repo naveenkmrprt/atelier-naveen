@@ -1,0 +1,47 @@
+---
+// TechMarquee — Infinite scrolling tech stack
+const techStack = [
+  "JAVA 21", "SPRING BOOT 3.x", "ANGULAR 17+", "GCP", 
+  "KUBERNETES", "MONGODB", "TERRAFORM", "CI/CD", "SYSTEM ARCHITECTURE"
+];
+// Repeat the stack multiple times so it fills the screen and seamlessly loops
+const repeatedStack = [...techStack, ...techStack, ...techStack, ...techStack];
+---
+
+<section class="w-full bg-surface border-y border-[#4A4A4A] overflow-hidden py-5 flex">
+  <div class="relative flex w-full">
+    <!-- Marquee Track 1 -->
+    <div class="animate-marquee whitespace-nowrap flex items-center">
+      {repeatedStack.map((tech) => (
+        <span class="text-cream text-xs md:text-sm font-mono uppercase tracking-widest mx-6">
+          {tech} <span class="text-terracotta ml-6 opacity-60">•</span>
+        </span>
+      ))}
+    </div>
+    <!-- Marquee Track 2 (offset to trail behind track 1) -->
+    <div class="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center">
+      {repeatedStack.map((tech) => (
+        <span class="text-cream text-xs md:text-sm font-mono uppercase tracking-widest mx-6">
+          {tech} <span class="text-terracotta ml-6 opacity-60">•</span>
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-marquee {
+    animation: marquee 90s linear infinite;
+  }
+  .animate-marquee2 {
+    animation: marquee2 90s linear infinite;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+  @keyframes marquee2 {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0%); }
+  }
+</style>
