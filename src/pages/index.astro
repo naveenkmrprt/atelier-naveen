@@ -6,16 +6,20 @@ import EngineeringProcess from "../components/EngineeringProcess.astro";
 import BentoGrid from "../components/BentoGrid.astro";
 import TechMarquee from "../components/TechMarquee.astro";
 import ContactFooter from "../components/ContactFooter.astro";
+import CadMode from "../components/CadMode.astro";
 ---
 
 <BaseLayout
   title="Naveen Kumar — Senior Full-Stack Engineer"
   description="Portfolio of Naveen Kumar — Senior Full-Stack Engineer specializing in scalable web architecture."
 >
-  <PreloaderHero />
-  <CaseStudies />
-  <EngineeringProcess />
-  <BentoGrid />
-  <TechMarquee />
-  <ContactFooter />
+  <div id="main-content" class="transition-transform duration-700 origin-center">
+    <PreloaderHero />
+    <CaseStudies />
+    <EngineeringProcess />
+    <BentoGrid />
+    <TechMarquee />
+    <ContactFooter />
+  </div>
+  <CadMode />
 </BaseLayout>
