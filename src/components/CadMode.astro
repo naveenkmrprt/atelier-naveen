@@ -229,6 +229,11 @@
 
       const animate = () => {
         animationId = requestAnimationFrame(animate);
+
+        // PRODUCTION OPTIMIZATION: Halt expensive WebGL rendering when modal is hidden
+        const stage = document.getElementById("cad-stage");
+        if (stage && stage.classList.contains("hidden")) return;
+
         const time = clock.getElapsedTime();
         
         // Update GLSL Shader time
